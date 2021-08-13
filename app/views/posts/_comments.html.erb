@@ -1,0 +1,12 @@
+<%= form_for comment, url: comments_path, method: :post do |f| %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
+  <%= f.fields_for :user, User.new do |user_fields| %>
+    <%= user_fields.label :username %>
+    <%= user_fields.text_field :username %>
+  <% end %>
+
+  <%= f.label "Comment" %>
+  <%= f.text_area :content %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.submit "Create Comment"%>
+<% end %>
